@@ -32,7 +32,9 @@ namespace Catalog.Business
         {
             using (var db = new EFCoreContext())
             {
-                db.Brands.Update(model);
+                var brand = db.Brands.FirstOrDefault(x => x.BrandID == model.BrandID);
+                brand.Name = model.Name;
+                db.SaveChanges();
                 return model;
 
             }
@@ -48,6 +50,7 @@ namespace Catalog.Business
                     return false;
                 }
                 db.Brands.Remove(model);
+                db.SaveChanges();
                 return true;
 
             }

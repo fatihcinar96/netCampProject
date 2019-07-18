@@ -20,16 +20,21 @@
 
         @foreach (var item in Model)
         {
-        <tr>
-            <th scope="row">@item.ID</th>
-            <td>@item.Name</td>
-            <td>@item.BrandName</td>
-            <td>@item.CategoryName</td>
-            <td>@item.Description</td>
-        </tr>
+            int i = 0;
+            i++;
+            <tr>
+                <th scope="row">@i</th>
+                <td>@item.Name</td>
+                <td>@item.BrandName</td>
+                <td>@item.CategoryName</td>
+                <td>@item.Description</td>
+                <td><a>@Html.ActionLink("Update","Update","Product",new {id = item.ID })</a></td>
+                <td><a>@Html.ActionLink("Delete","Delete","Product",new { id = item.ID})</a></td>
+                
+            </tr>
         }
 
     </tbody>
-    <input type="button" value="Create New" asp-controller="Brand" asp-action="Add" />
+    @Html.ActionLink("Create New", "Add", "Product",new { @class = "form-control" })
 </table>
 

@@ -27,9 +27,15 @@ namespace Catalog.Business
         {
             using(var db = new EFCoreContext())
             {
-                db.Users.FirstOrDefault(x => x.Username == username);
-                db.Users.FirstOrDefault(x => x.Password == password);
-                return true;
+
+                var user = db.Users.FirstOrDefault(x => x.Username == username);
+                var pass = db.Users.FirstOrDefault(x => x.Password == password);
+                    if(user != null && pass != null)
+                    {
+                        return true;
+                    } 
+                    
+                    return false;               
               
             }
         }

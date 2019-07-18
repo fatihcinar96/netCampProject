@@ -31,7 +31,8 @@ namespace Catalog.Business
         {
             using(var db = new EFCoreContext())
             {
-                db.Categories.Update(model);
+                var category = db.Categories.FirstOrDefault(x => x.CategoryID == model.CategoryID);
+                category.Name = model.Name;
                 db.SaveChanges();
                 return model;
             }

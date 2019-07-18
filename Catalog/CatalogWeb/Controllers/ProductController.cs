@@ -48,10 +48,17 @@ namespace CatalogWeb.Controllers
         }
 
         [Authorize]
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
-            return View();
+            var brandService = new BrandService();
+            var categoryService = new CategoryService();
+            var productService = new ProductService();
+            var product = productService.GetProduct(id);
+            ViewBag.Brands = new SelectList(brandService.GetList(), "BrandID", "Name");
+            ViewBag.Categories = new SelectList(categoryService.GetList(), "CategoryID", "Name");
+            return View(product);
         }
+
         [Authorize]
         [HttpPost]
         public IActionResult Update(Product model)
@@ -59,7 +66,7 @@ namespace CatalogWeb.Controllers
             var dataService = new ProductService();
             try
             {
-                dataService.Add(model);
+                dataService.Update(model);
             }
             catch (Exception ex)
             {

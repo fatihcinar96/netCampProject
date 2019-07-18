@@ -1,0 +1,27 @@
+﻿@model Catalog.DataAccess.Product
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+
+
+<h1>Product Update</h1>
+
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <form>
+        <div class="form-group">
+            <label for="productName">Name</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" , @Value = Model.Name})
+            <label for="brandName">Brand</label>
+            @Html.DropDownList("BrandID", (SelectList)ViewBag.Brands, new { @class = "form-control" })
+            <label for="categoryName">Category</label>
+            @Html.DropDownList("CategoryId", (SelectList)ViewBag.Categories, new { @class = "form-control" })
+            <label for="productDescription">Description</label>
+            @Html.TextAreaFor(x => x.Description, new { @class = "form-control" , @Value = Model.Description})
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+}

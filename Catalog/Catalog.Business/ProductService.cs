@@ -29,6 +29,15 @@ namespace Catalog.Business
             }
         }
 
+        public Product GetProduct(int id)
+        {
+            using (var db = new EFCoreContext()) 
+            {
+                var product = db.Products.Find(id);
+                return product;
+            }
+        }
+
         public Product Add(Product model)
         {
             using (var db = new EFCoreContext())
@@ -43,8 +52,14 @@ namespace Catalog.Business
         {
             using (var db = new EFCoreContext())
             {
-                db.Products.Update(model);
+                var product = db.Products.FirstOrDefault(x => x.ID == model.BrandID);
+                product.BrandID = model.BrandID;
+                product.CategoryID = model.CategoryID;
+                product.Description = model.Description;
+                product.Name = model.Name;
                 db.SaveChanges();
+                //db.Products.Update(model);
+                //db.SaveChanges();
                 return model;
             }
         }
