@@ -6,22 +6,24 @@ using Catalog.Business;
 using Catalog.DataAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CatalogWeb.Controllers
 {
     public class CategoryController : Controller
     {
+        [Authorize]
         public IActionResult List()
         {
             var dataService = new CategoryService();
             return View(dataService.GetList());
         }
-
+        [Authorize]
         public IActionResult Add()
         {
             return View();
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Add(Category model)
         {
@@ -38,12 +40,17 @@ namespace CatalogWeb.Controllers
             }
             return RedirectToAction("List");
         }
-
-        public IActionResult Update()
+        [Authorize]
+        public IActionResult Update(int id)
         {
-            return View();
+            var categoryService = new CategoryService();
+            ViewBag.Categories = new SelectList(categoryService.GetList(), "CategoryID", "Name");
+            var category = categoryService.GetCategory(id);
+            return View(category);
         }
 
+
+        [Authorize]
         [HttpPost]
         public IActionResult Update(Category model)
         {
@@ -56,12 +63,12 @@ namespace CatalogWeb.Controllers
             {
 
                 ViewBag.Error = ex.Message;
-                return View(ex.Message);
+                return View(ViewBag.Error);
             }
             return RedirectToAction("List");
         }
 
-
+        [Authorize]
         public IActionResult Delete (int id)
         {
             var dataService = new CategoryService();

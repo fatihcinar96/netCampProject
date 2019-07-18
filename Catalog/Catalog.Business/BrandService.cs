@@ -17,6 +17,15 @@ namespace Catalog.Business
             }
         }
 
+        public Brand GetBrand(int id)
+        {
+            using (var db = new EFCoreContext())
+            {
+                var brand = db.Brands.Find(id);
+                return brand;
+            }
+        }
+
         public Brand Add(Brand model)
         {
             using (var db = new EFCoreContext())
@@ -32,9 +41,13 @@ namespace Catalog.Business
         {
             using (var db = new EFCoreContext())
             {
-                var brand = db.Brands.FirstOrDefault(x => x.BrandID == model.BrandID);
-                brand.Name = model.Name;
-                db.SaveChanges();
+                var brand = db.Brands.Find(model.BrandID);
+                if(brand != null)
+                {
+                    brand.Name = model.Name;
+                    db.SaveChanges();
+                }
+                
                 return model;
 
             }

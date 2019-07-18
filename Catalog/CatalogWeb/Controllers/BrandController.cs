@@ -6,6 +6,8 @@ using Catalog.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.DataAccess;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace CatalogWeb.Controllers
 {
     public class BrandController : Controller
@@ -41,9 +43,12 @@ namespace CatalogWeb.Controllers
         }
 
         [Authorize]
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
-            return View();
+            var dataService = new BrandService();
+            var brand = dataService.GetBrand(id);
+            ViewBag.Brands = new SelectList(dataService.GetList(), "BrandID", "Name");
+            return View(brand);
 
         }
         [HttpPost]

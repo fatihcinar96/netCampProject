@@ -16,6 +16,15 @@ namespace Catalog.Business
             }
         }
 
+        public Category GetCategory(int id)
+        {
+            using (var db = new EFCoreContext())
+            {
+                var model = db.Categories.Find(id);
+                return model;
+            }
+        }
+
         public Category Add(Category model)
         {
             using(var db = new EFCoreContext())
@@ -31,12 +40,17 @@ namespace Catalog.Business
         {
             using(var db = new EFCoreContext())
             {
-                var category = db.Categories.FirstOrDefault(x => x.CategoryID == model.CategoryID);
-                category.Name = model.Name;
-                db.SaveChanges();
+                var category = db.Categories.Find(model.CategoryID);
+                if(category != null)
+                {
+
+                    category.Name = model.Name;
+                    db.SaveChanges();
+                }
                 return model;
             }
         }
+
 
         public bool Delete (int id)
         {

@@ -52,12 +52,16 @@ namespace Catalog.Business
         {
             using (var db = new EFCoreContext())
             {
-                var product = db.Products.FirstOrDefault(x => x.ID == model.BrandID);
-                product.BrandID = model.BrandID;
-                product.CategoryID = model.CategoryID;
-                product.Description = model.Description;
-                product.Name = model.Name;
-                db.SaveChanges();
+                var product = db.Products.Find(model.ID);
+                if(product != null)
+                {
+                    product.BrandID = model.BrandID;
+                    product.CategoryID = model.CategoryID;
+                    product.Description = model.Description;
+                    product.Name = model.Name;
+                    db.SaveChanges();
+                }
+                
                 //db.Products.Update(model);
                 //db.SaveChanges();
                 return model;

@@ -1,0 +1,18 @@
+﻿@model Catalog.DataAccess.Category
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Category Update</h1>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <form>
+        <div class="form-group">
+            @Html.HiddenFor(x=> x.CategoryID)
+            <label for="categoryName">Name</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @Value = Model.Name })
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+}
