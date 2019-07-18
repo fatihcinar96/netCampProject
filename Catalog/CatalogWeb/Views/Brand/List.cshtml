@@ -1,0 +1,27 @@
+﻿@model List<Catalog.DataAccess.Brand>
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>Brand List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.BrandID</th>
+                <td>@item.Name</td>
+            </tr>
+        }
+
+    </tbody>
+    <input type ="button" value="Create New" asp-controller="Brand" asp-action="Add"/>
+</table>

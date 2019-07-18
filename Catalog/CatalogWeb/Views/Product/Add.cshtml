@@ -1,0 +1,28 @@
+﻿@model Catalog.DataAccess.Product
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Product Add</h1>
+
+@*@foreach (var item in ViewBag.Categories)
+{
+    <p>@item.Name</p>
+}*@
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <form>
+        <div class="form-group">
+            <label for="productName">Name</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+            <label for="brandName">Brand</label>
+            @Html.DropDownList("BrandID",(SelectList)ViewBag.Brands,new {@class = "form-control" })
+            <label for="categoryName">Category</label>
+            @Html.DropDownList("CategoryId", (SelectList)ViewBag.Categories, new { @class = "form-control" })
+            <label for="productDescription">Description</label>
+            @Html.TextAreaFor(x=> x.Description, new { @class = "form-control"})
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+</form>
+}

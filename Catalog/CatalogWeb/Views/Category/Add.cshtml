@@ -1,0 +1,19 @@
+﻿@model Catalog.DataAccess.Category
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Category Add</h1>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <form>
+        <div class="form-group">
+            <label for="categoryName">Name</label>
+            @Html.TextBoxFor(x=> x.Name , new { @class = "form-control"})
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+}
+
+@ViewBag.Error
