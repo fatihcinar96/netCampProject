@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Catalog.Business;
+using Catalog.DataAccess;
 using CatalogWeb.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -45,9 +47,35 @@ namespace CatalogWeb.Controllers
             return RedirectToAction("Login");
         }
 
-        private bool LoginUser(string username,string password)
+
+
+        public IActionResult Register() 
         {
-            if(username == "fatih" && password == "123456")
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(string username,string password)
+        {
+            var dataService = new UserService();
+            try
+            {
+                dataService.Register(username, password);
+                
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
+            return RedirectToAction("Login");
+        }
+
+
+        private bool LoginUser(string username, string password)
+        {
+            var dataService = new UserService();
+            if (dataService.Login(username, password))
             {
                 return true;
             }
@@ -55,6 +83,7 @@ namespace CatalogWeb.Controllers
             {
                 return false;
             }
+            
         }
     }
 }
