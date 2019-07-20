@@ -61,8 +61,12 @@ namespace CatalogWeb.Controllers
             var dataService = new UserService();
             try
             {
-                dataService.Register(username, password);
-                
+                var reg = dataService.Register(username, password);
+                if(reg == false)
+                {
+                    ViewBag.Error = "This username is already taken";
+                    return View();
+                }
             }
             catch (Exception ex)
             {
